@@ -152,24 +152,77 @@ class Interface{
         cin >> type;
         cin.ignore();
         
-        json newGame;
         string text;
         cout << "введите название игры: ";
         getline(cin, text);
+
+        string lowerInput = text;
+        for (char& c : lowerInput){
+            c = tolower(c);
+        }
+
+        int foundIndex = -1;
+        
+        for (int i = 0; i < data.size(); i++){
+            string lowerGame = data[i]["game"].get<string>();
+            for (char& c : lowerGame){
+                c = tolower(c);
+            }
+
+            if (lowerInput == lowerGame){
+                foundIndex = i;
+                break;
+            }
+        }
+
+        if (foundIndex != -1){
+            cout << "\nТакая игра уже есть, выберите действие:\n";
+            cout << "[1] - Добавить новую отдельную запись\n";
+            cout << "[2] - Изменить уже существующие данные\n";
+            cout << "[3] - Отмена\n: ";
+            int action;
+            cin >> action;
+            cin.ignore();
+
+            if (action == 3){
+                return;
+            } 
+            else if (action == 2){
+                string inputStr;
+                if (type == 1){
+                    cout << "введите чит код: ";
+                    getline(cin, inputStr);
+                    data[foundIndex]["cheat"] = inputStr;
+                }
+                else if (type == 2){
+                    cout << "напишите название бага и опишите кратко его суть: ";
+                    getline(cin, inputStr);
+                    data[foundIndex]["bug"] = inputStr;
+                    cout << "напишите предположительную сложность (0-10): ";
+                    getline(cin, inputStr);
+                    data[foundIndex]["dificulty"] = inputStr;
+                }
+                saveData(data);
+                return;
+            }
+        }
+
+        json newGame;
         newGame["game"] = text;
 
+        string inputStr;
         if (type == 1){
-            cout << "введите чит код(комбинацию): ";
-            getline(cin, text);
-            newGame["cheat"] = text;
+            cout << "введите чит код: ";
+            getline(cin, inputStr);
+            newGame["cheat"] = inputStr;
         }
         else if (type == 2){
             cout << "напишите название бага, если оно есть и опишите кратко его суть: ";
-            getline(cin, text);
-            newGame["bug"] = text;
+            getline(cin, inputStr);
+            newGame["bug"] = inputStr;
             cout << "напишите предположительную сложность выполнениия бага от 0 до 10: ";
-            getline(cin, text);
-            newGame["dificulty"] = text;
+            getline(cin, inputStr);
+            newGame["dificulty"] = inputStr;
         }
         else{
             cout << "error" << endl;
@@ -178,7 +231,6 @@ class Interface{
 
         data.push_back(newGame);
         saveData(data);
-
     }
 };
 

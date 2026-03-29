@@ -24,5 +24,10 @@
         "bug": "возможность сломать бедрок, поставив 2 поршня, 2 динамита, люк, рычаг, любой блок и обсидиан",
         "dificulty": "5",
         "game": "Minecraft"
+    },
+    {
+        "bug": "BLSS - infinite glide",
+        "dificulty": "7",
+        "game": "The Legend of Zelda: Breath of the Wild"
     }
 ]
