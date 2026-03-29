@@ -1,42 +1,64 @@
 [
     {
-        "cheat": "IDDQD\nIDKFA",
-        "game": "Doom"
+        "game": "Doom",
+        "cheat": "IDDQD (Бессмертие)\nIDKFA (Полный боезапас и ключи)",
+        "easter_egg": "На последнем уровне Doom 2 за текстурой лица Иконы Греха спрятана голова Джона Ромеро на колу."
     },
     {
-        "cheat": "MOTHERLODE",
-        "game": "The Sims"
+        "game": "The Sims 4",
+        "cheat": "MOTHERLODE (50,000 симолеонов)\nFreeRealEstate On (Бесплатные дома)",
+        "easter_egg": "В Силван Глейд (секретная локация) можно найти светящиеся глаза в кустах."
     },
     {
-        "cheat": "HESOYAM",
-        "game": "GTA:SA"
+        "game": "GTA: San Andreas",
+        "cheat": "HESOYAM (Здоровье, броня, $250k)\nUZUMYMW (Набор оружия №3)",
+        "bug": "Машины-призраки в лесу Back-o-Beyond, которые катятся сами по себе из-за особенностей рельефа."
     },
     {
-        "cheat": "tgm",
-        "game": "Bethesda games"
+        "game": "Skyrim (Bethesda)",
+        "cheat": "tgm (God mode)\ntcl (Проход сквозь стены)",
+        "bug": "Великаны отправляют игрока в «космическую программу», запуская в небо ударом дубины.",
+        "dificulty": "1"
     },
     {
-        "bug": "there is no wall on level",
-        "dificulty": "2",
-        "game": "Poppy Playtime Chapter 2"
+        "game": "Poppy Playtime Chapter 2",
+        "bug": "Out of bounds — в зоне с поездом можно провалиться сквозь пол, если неправильно использовать GrabPack.",
+        "dificulty": "4"
     },
     {
-        "bug": "возможность сломать бедрок, поставив 2 поршня, 2 динамита, люк, рычаг, любой блок и обсидиан",
+        "game": "Minecraft",
+        "bug": "Слом бедрока через поршни и динамит (актуально для Java Edition).",
         "dificulty": "5",
-        "game": "Minecraft"
+        "easter_egg": "Если переименовать овцу в «jeb_», её шерсть будет переливаться всеми цветами радуги."
     },
     {
-        "bug": "BLSS - infinite glide\nBomb jump - allows you to \"shoot\" yourself with a bomb",
-        "dificulty": "7; 5",
-        "game": "The Legend of Zelda: Breath of the Wild"
+        "game": "The Legend of Zelda: Breath of the Wild",
+        "bug": "Windbomb (Boomie Zoomie) — использование двух бомб для полета на огромной скорости.\nBLSS — скольжение по воздуху с предметом в руках.",
+        "dificulty": "5; 7"
     },
     {
-        "cheat": "GODMODE",
-        "game": "Hades"
+        "game": "Hades",
+        "cheat": "Режим Бога (God Mode) — это официальная настройка в меню, дающая +2% защиты за каждую смерть.",
+        "easter_egg": "Если долго стоять в покоях Аида, можно услышать ворчание Цербера, требующего ласки."
     },
     {
-        "bug": "T-Pose everywhere",
-        "dificulty": "10",
-        "game": "Cyberpunk"
+        "game": "Cyberpunk 2077",
+        "bug": "T-Pose персонажей при быстрой езде (исправлено в патчах, но легендарно).\nБесконечные прыжки через уклонение (Kereznikov glitch).",
+        "dificulty": "2; 6"
+    },
+    {
+        "game": "Half-Life 2",
+        "cheat": "sv_cheats 1; noclip (Полет)\nimpulse 101 (Все оружие)",
+        "easter_egg": "Спрятанный «Всевидящий вортигонт» в канализации, который жарит голову хедкраба на костре."
+    },
+    {
+        "game": "Mortal Kombat",
+        "cheat": "ABACABB (Код на кровь в версии для Sega Genesis)",
+        "easter_egg": "Рептилия в первой части появлялся на дне ямы, если победить с Double Flawless без блока при пролете силуэта по луне."
+    },
+    {
+        "game": "Portal",
+        "easter_egg": "Скрытые комнаты «Человека-крысы» (Doug Rattmann) с надписями «The cake is a lie» на стенах.",
+        "bug": "Portal Bump — возможность ставить порталы на поверхности, которые для этого не предназначены, «выталкивая» край портала."
     }
 ]

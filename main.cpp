@@ -52,12 +52,7 @@ class EasterEgg : public Game {
     }
 };
 
-
-
-
-
-
-
+    /////////////////////////////////////////////////
 
 class Interface{
     public:
@@ -69,7 +64,8 @@ class Interface{
             cout << "[2] - найти игры в категории" << endl;
             cout << "[3] - найти по названию" << endl;
             cout << "[4] - добавить игру" << endl;
-            cout << "[5] - выход" << endl;
+            cout << "[5] - удалить игру" << endl;
+            cout << "[6] - выход" << endl;
             cout << "выберите действие: ";
             cin >> choice;
 
@@ -86,8 +82,34 @@ class Interface{
                 addGame(data);
             }
             else if(choice == 5){
+                deleteGame(data);
+            }
+            else if(choice == 6){
                 break;
             }
+        }
+    }
+
+    /////////////////////////////////////////////////
+
+    static void deleteGame(json& data){
+        int i = 0;
+        int type;
+        int delete_game;
+        for (auto item : data){
+            cout << "[" << i << "]" << item["game"] << endl;
+            i++;
+        }
+        cout << "\nвыбор действия:\n[1] - удалить\n[2] - назад\n: ";
+        cin >> type;
+        if (type == 1){
+            cout << "введите номер игры, которую хотите удалить: ";
+            cin >> delete_game;
+            data.erase(delete_game);
+            saveData(data);
+        }
+        else if (type == 2){
+            showMenu(data);
         }
     }
 
@@ -100,11 +122,13 @@ class Interface{
         getline(cin, searchName);
 
         string lower = searchName;
-        for (char& c : lower) c = tolower(c);
+        for (char& c : lower){
+            c = tolower(c);
+        }
 
         bool found = false;
 
-        for (auto& item : data) {
+        for (auto& item : data){
             string currentGame = item["game"].get<string>();
             string lowerGame = currentGame;
             for (char& c : lowerGame){
@@ -367,8 +391,6 @@ class Interface{
 int main(){
     ifstream f("da.json");
     json data = json::parse(f);
-
-    // Interface::showAllGames(data);
+    f.close();
     Interface::showMenu(data);
-
 }
