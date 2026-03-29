@@ -126,9 +126,18 @@ class Interface{
 
     static void showIndexGame(json& data){
         int numGame;
+        int numType;
         cout << "введите номер игры: ";
         cin >> numGame;
-        cout << data[numGame] << endl;
+        cout << "что показать по игре " << data[numGame]["game"] << ":\n[0]читы\n[1]баги\n[2]пасхалки\n:";
+        cin >> numType;
+        string keys[] = {"cheat", "bug", "easter_egg"};
+        string currentKey = keys[numType];
+
+        if (data[numGame].contains(currentKey)){
+            cout << "Результат: " << data[numGame][currentKey] << endl;
+        } 
+        else{cout << "У этой игры нет поля " << currentKey << "!" << endl;}
     }
 
     static void saveData(json& data){
