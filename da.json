@@ -1,0 +1,42 @@
+[
+    {
+        "cheat": "IDDQD\nIDKFA",
+        "game": "Doom"
+    },
+    {
+        "cheat": "MOTHERLODE",
+        "game": "The Sims"
+    },
+    {
+        "cheat": "NEW_CHEAT",
+        "game": "GTA:SA"
+    },
+    {
+        "cheat": "tgm",
+        "game": "Bethesda games"
+    },
+    {
+        "bug": "there is no wall on level",
+        "dificulty": "2",
+        "game": "Poppy Playtime Chapter 2"
+    },
+    {
+        "bug": "возможность сломать бедрок, поставив 2 поршня, 2 динамита, люк, рычаг, любой блок и обсидиан",
+        "dificulty": "5",
+        "game": "Minecraft"
+    },
+    {
+        "bug": "BLSS - infinite glide\\nBomb jump - allows you to \\\"shoot\\\" yourself with a bomb",
+        "dificulty": "7; 4",
+        "game": "The Legend of Zelda: Breath of the Wild"
+    },
+    {
+        "cheat": "GODMODE",
+        "game": "Hades"
+    },
+    {
+        "bug": "T-Pose everywhere",
+        "dificulty": "10",
+        "game": "Cyberpunk"
+    }
+]

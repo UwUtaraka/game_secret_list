@@ -21,7 +21,7 @@ class Cheat : public Game {
         this->code = code;
     }
     void showInfo() override {
-        cout << "Игра: " << name << " | Код: " << code << endl;
+        cout << "Игра: " << name << "\nЧит(ы):\n" << code << endl;
     }
 };
 
@@ -36,7 +36,7 @@ class Bug : public Game {
 
     }
     void showInfo() override {
-        cout << "Игра: " << name << " | Баг: " << bug << " | Сложность выполнения бага: " << dificulty << endl;
+        cout << "Игра: " << name << "\nБаг(и):\n" << bug << "\nСложность выполнения бага(багов): " << dificulty << endl;
     }
 };
 
@@ -67,6 +67,9 @@ class Interface{
             else if(choice == 2){
                 showCategory(data);
             }
+            else if(choice == 3){
+                searchByName(data);
+            }
             else if(choice == 4){
                 addGame(data);
             }
@@ -75,6 +78,51 @@ class Interface{
             }
         }
     }
+
+    /////////////////////////////////////////////////
+
+    static void searchByName(json& data) {
+        string searchName;
+        cout << "Введите название игры: ";
+        cin.ignore();
+        getline(cin, searchName);
+
+        string lower = searchName;
+        for (char& c : lower) c = tolower(c);
+
+        bool found = false;
+
+        for (auto& item : data) {
+            string currentGame = item["game"].get<string>();
+            string lowerGame = currentGame;
+            for (char& c : lowerGame){
+                c = tolower(c);
+            }
+
+            if (lowerGame.find(lower) < lowerGame.length()){
+                found = true;
+                Game* game;
+
+                if (item.contains("cheat")){
+                    game = new Cheat(item["game"], item["cheat"]);
+                } 
+                else if (item.contains("bug")){
+                    game = new Bug(item["game"], item["bug"], item["dificulty"]);
+                }
+
+                if (game){
+                    game->showInfo();
+                    delete game;
+                }
+            }
+        }
+
+        if (!found){
+            cout << "Ничего не найдено" << endl;
+        }
+    }
+
+    /////////////////////////////////////////////////
 
     static void showCategory(json& data){
         int type;
@@ -93,13 +141,14 @@ class Interface{
             else if (type == 2 && item.contains("bug")){
                 game = new Bug(item["game"], item["bug"], item["dificulty"]);
             }
-
             if (game != nullptr){
                 game->showInfo();
                 delete game;
             }
         }
     }
+
+    /////////////////////////////////////////////////
 
     static void showAllGames(json& data){
         int i = 0;
@@ -121,8 +170,13 @@ class Interface{
         else if (type == 2){
             showIndexGame(data);
         }
+        else if (type == 3){
+            searchByName(data);
+        }
         
     }
+
+    /////////////////////////////////////////////////
 
     static void showIndexGame(json& data){
         int numGame;
@@ -140,11 +194,15 @@ class Interface{
         else{cout << "У этой игры нет поля " << currentKey << "!" << endl;}
     }
 
+    /////////////////////////////////////////////////
+
     static void saveData(json& data){
         ofstream f("da.json");
         f << data.dump(4);
         f.close();
     }
+
+    /////////////////////////////////////////////////
 
     static void addGame(json& data){
         int type;
@@ -163,7 +221,7 @@ class Interface{
 
         int foundIndex = -1;
         
-        for (int i = 0; i < data.size(); i++){
+        for (size_t i = 0; i < data.size(); i++){
             string lowerGame = data[i]["game"].get<string>();
             for (char& c : lowerGame){
                 c = tolower(c);
@@ -177,8 +235,8 @@ class Interface{
 
         if (foundIndex != -1){
             cout << "\nТакая игра уже есть, выберите действие:\n";
-            cout << "[1] - Добавить новую отдельную запись\n";
-            cout << "[2] - Изменить уже существующие данные\n";
+            cout << "[1] - Дополнить существующую\n";
+            cout << "[2] - Перезаписать данные\n";
             cout << "[3] - Отмена\n: ";
             int action;
             cin >> action;
@@ -187,21 +245,50 @@ class Interface{
             if (action == 3){
                 return;
             } 
-            else if (action == 2){
+            else if (action == 1 || action == 2){ 
                 string inputStr;
                 if (type == 1){
-                    cout << "введите чит код: ";
+                    if (action == 2 && data[foundIndex].contains("cheat")){ 
+                        cout << "Текущий чит: " << data[foundIndex]["cheat"] << endl;
+                    }
+                    
+                    cout << "Введите чит код: ";
                     getline(cin, inputStr);
-                    data[foundIndex]["cheat"] = inputStr;
+                    
+                    if (action == 1 && data[foundIndex].contains("cheat")){ 
+                        data[foundIndex]["cheat"] = data[foundIndex]["cheat"].get<string>() + "\n" + inputStr;
+                    } 
+                    else{
+                        data[foundIndex]["cheat"] = inputStr; 
+                    }
                 }
                 else if (type == 2){
-                    cout << "напишите название бага и опишите кратко его суть: ";
+                    if (action == 2 && data[foundIndex].contains("bug")){
+                        cout << "Текущий баг: " << data[foundIndex]["bug"] << endl;
+                        cout << "Текущая сложность: " << data[foundIndex].value("dificulty", "Нет данных") << endl;
+                    }
+
+                    cout << "Напишите название бага и опишите кратко его суть: ";
                     getline(cin, inputStr);
-                    data[foundIndex]["bug"] = inputStr;
-                    cout << "напишите предположительную сложность (0-10): ";
+                    
+                    if (action == 1 && data[foundIndex].contains("bug")){
+                        data[foundIndex]["bug"] = data[foundIndex]["bug"].get<string>() + "\n" + inputStr;
+                    }
+                    else{
+                        data[foundIndex]["bug"] = inputStr;
+                    }
+
+                    cout << "Напишите предположительную сложность (0-10): ";
                     getline(cin, inputStr);
-                    data[foundIndex]["dificulty"] = inputStr;
+                    
+                    if (action == 1 && data[foundIndex].contains("dificulty")){
+                        data[foundIndex]["dificulty"] = data[foundIndex]["dificulty"].get<string>() + "; " + inputStr;
+                    } 
+                    else{
+                        data[foundIndex]["dificulty"] = inputStr;
+                    }
                 }
+                
                 saveData(data);
                 return;
             }
@@ -234,7 +321,7 @@ class Interface{
     }
 };
 
-
+    /////////////////////////////////////////////////
 
 int main(){
     ifstream f("da.json");
