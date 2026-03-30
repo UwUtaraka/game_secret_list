@@ -18,23 +18,23 @@
         "game": "Skyrim (Bethesda)",
         "cheat": "tgm (God mode)\ntcl (Проход сквозь стены)",
         "bug": "Великаны отправляют игрока в «космическую программу», запуская в небо ударом дубины.",
-        "dificulty": "1"
+        "difficulty": "1"
     },
     {
         "game": "Poppy Playtime Chapter 2",
         "bug": "Out of bounds — в зоне с поездом можно провалиться сквозь пол, если неправильно использовать GrabPack.",
-        "dificulty": "4"
+        "difficulty": "4"
     },
     {
         "game": "Minecraft",
         "bug": "Слом бедрока через поршни и динамит (актуально для Java Edition).",
-        "dificulty": "5",
+        "difficulty": "5",
         "easter_egg": "Если переименовать овцу в «jeb_», её шерсть будет переливаться всеми цветами радуги."
     },
     {
         "game": "The Legend of Zelda: Breath of the Wild",
         "bug": "Windbomb (Boomie Zoomie) — использование двух бомб для полета на огромной скорости.\nBLSS — скольжение по воздуху с предметом в руках.",
-        "dificulty": "5; 7"
+        "difficulty": "5; 7"
     },
     {
         "game": "Hades",
@@ -44,7 +44,7 @@
     {
         "game": "Cyberpunk 2077",
         "bug": "T-Pose персонажей при быстрой езде (исправлено в патчах, но легендарно).\nБесконечные прыжки через уклонение (Kereznikov glitch).",
-        "dificulty": "2; 6"
+        "difficulty": "2; 6"
     },
     {
         "game": "Half-Life 2",

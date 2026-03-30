@@ -28,15 +28,15 @@ class Cheat : public Game {
 class Bug : public Game {
     public:
     string bug;
-    string dificulty;
-    Bug(string name, string bug, string dificulty) {
+    string difficulty;
+    Bug(string name, string bug, string difficulty) {
         this->name = name;
         this->bug = bug;
-        this->dificulty = dificulty;
+        this->difficulty = difficulty;
 
     }
     void showInfo() override {
-        cout << "\nИгра: " << name << "\nБаг(и):\n" << bug << "\nСложность выполнения бага(багов): " << dificulty << endl;
+        cout << "\nИгра: " << name << "\nБаг(и):\n" << bug << "\nСложность выполнения бага(багов): " << difficulty << endl;
     }
 };
 
@@ -143,7 +143,7 @@ class Interface{
                     game = new Cheat(item["game"], item["cheat"]);
                 } 
                 else if (item.contains("bug")){
-                    game = new Bug(item["game"], item["bug"], item["dificulty"]);
+                    game = new Bug(item["game"], item["bug"], item["difficulty"]);
                 }
                 else if (item.contains("easter_egg")){
                     game = new EasterEgg(item["game"], item["easter_egg"]);
@@ -179,7 +179,7 @@ class Interface{
                 game = new Cheat(item["game"], item["cheat"]);
             }
             else if (type == 2 && item.contains("bug")){
-                game = new Bug(item["game"], item["bug"], item["dificulty"]);
+                game = new Bug(item["game"], item["bug"], item["difficulty"]);
             }
             else if (type == 3 && item.contains("easter_egg")){
                 game = new EasterEgg(item["game"], item["easter_egg"]);
@@ -311,7 +311,7 @@ class Interface{
                 else if (type == 2){
                     if (action == 2 && data[foundIndex].contains("bug")){
                         cout << "Текущий баг: " << data[foundIndex]["bug"] << endl;
-                        cout << "Текущая сложность: " << data[foundIndex].value("dificulty", "Нет данных") << endl;
+                        cout << "Текущая сложность: " << data[foundIndex].value("difficulty", "Нет данных") << endl;
                     }
 
                     cout << "Напишите название бага и опишите кратко его суть: ";
@@ -327,11 +327,11 @@ class Interface{
                     cout << "Напишите предположительную сложность (0-10): ";
                     getline(cin, inputStr);
                     
-                    if (action == 1 && data[foundIndex].contains("dificulty")){
-                        data[foundIndex]["dificulty"] = data[foundIndex]["dificulty"].get<string>() + "; " + inputStr;
+                    if (action == 1 && data[foundIndex].contains("difficulty")){
+                        data[foundIndex]["difficulty"] = data[foundIndex]["difficulty"].get<string>() + "; " + inputStr;
                     }
                     else{
-                        data[foundIndex]["dificulty"] = inputStr;
+                        data[foundIndex]["difficulty"] = inputStr;
                     }
                 }
                 else if (type == 3){
@@ -369,7 +369,7 @@ class Interface{
             newGame["bug"] = inputStr;
             cout << "напишите предположительную сложность выполнениия бага от 0 до 10: ";
             getline(cin, inputStr);
-            newGame["dificulty"] = inputStr;
+            newGame["difficulty"] = inputStr;
         }
         else if (type == 3){
             cout << "опишите суть пасхалки: ";
@@ -388,9 +388,11 @@ class Interface{
 
     /////////////////////////////////////////////////
 
+#ifndef UNIT_TESTING
 int main(){
     ifstream f("da.json");
     json data = json::parse(f);
     f.close();
     Interface::showMenu(data);
 }
+#endif
