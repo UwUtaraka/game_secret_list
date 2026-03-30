@@ -56,7 +56,7 @@ class EasterEgg : public Game {
 
 class Interface{
     public:
-    static void showMenu(json& data){
+    static void showMenu(json& data){//вывод всего меню
         while(true){
             int choice;
             cout << "\nВыбор действия:" << endl;
@@ -92,11 +92,11 @@ class Interface{
 
     /////////////////////////////////////////////////
 
-    static void deleteGame(json& data){
+    static void deleteGame(json& data){//удаление игры
         int i = 0;
         int type;
         int delete_game;
-        for (auto item : data){
+        for (auto item : data){//проходися по базе и выводим все игры с индексами
             cout << "[" << i << "]" << item["game"] << endl;
             i++;
         }
@@ -115,27 +115,27 @@ class Interface{
 
     /////////////////////////////////////////////////
 
-    static void searchByName(json& data) {
+    static void searchByName(json& data) {//поиск игры по названию
         string searchName;
         cout << "Введите название игры: ";
         cin.ignore();
         getline(cin, searchName);
 
-        string lower = searchName;
+        string lower = searchName;//приводим строку к нижнему регистру
         for (char& c : lower){
             c = tolower(c);
         }
 
         bool found = false;
 
-        for (auto& item : data){
+        for (auto& item : data){//проходим по базе и сравниваем названия
             string currentGame = item["game"].get<string>();
             string lowerGame = currentGame;
             for (char& c : lowerGame){
                 c = tolower(c);
             }
 
-            if (lowerGame.find(lower) < lowerGame.length()){
+            if (lowerGame.find(lower) < lowerGame.length()){//если нашли совпадение, выводим информацию по игре
                 found = true;
                 Game* game;
 
@@ -163,7 +163,7 @@ class Interface{
 
     /////////////////////////////////////////////////
 
-    static void showCategory(json& data){
+    static void showCategory(json& data){//поиск игр по категории
         int type;
 
         cout << "Категории:" << endl;
@@ -173,7 +173,7 @@ class Interface{
         cout << "Введите номер категории: ";
         cin >> type;
          
-        for (auto item : data){
+        for (auto item : data){//проходим по базе и выводим игры с выбранной категорией
             Game* game = nullptr;
             if (type == 1 && item.contains("cheat")){
                 game = new Cheat(item["game"], item["cheat"]);
@@ -193,7 +193,7 @@ class Interface{
 
     /////////////////////////////////////////////////
 
-    static void showAllGames(json& data){
+    static void showAllGames(json& data){//вывод всего списка игр
         int i = 0;
         int type;
         for (auto item : data){
@@ -224,17 +224,17 @@ class Interface{
 
     /////////////////////////////////////////////////
 
-    static void showIndexGame(json& data){
+    static void showIndexGame(json& data){//вывод информации по игре
         int numGame;
         int numType;
         cout << "введите номер игры: ";
         cin >> numGame;
         cout << "что показать по игре " << data[numGame]["game"] << ":\n[0]читы\n[1]баги\n[2]пасхалки\n:";
         cin >> numType;
-        string keys[] = {"cheat", "bug", "easter_egg"};
-        string currentKey = keys[numType];
+        string keys[] = {"cheat", "bug", "easter_egg"};//массив ключей для доступа к данным
+        string currentKey = keys[numType];//выбираем ключ в зависимости от выбора
 
-        if (data[numGame].contains(currentKey)){
+        if (data[numGame].contains(currentKey)){//проверяем, есть ли у игры данные по выбранному ключу
             cout << "Результат: " << data[numGame][currentKey] << endl;
         } 
         else{cout << "У этой игры нет поля " << currentKey << "!" << endl;}
@@ -242,7 +242,7 @@ class Interface{
 
     /////////////////////////////////////////////////
 
-    static void saveData(json& data){
+    static void saveData(json& data){//сохранение данных в файл
         ofstream f("da.json");
         f << data.dump(4);
         f.close();
@@ -250,7 +250,7 @@ class Interface{
 
     /////////////////////////////////////////////////
 
-    static void addGame(json& data){
+    static void addGame(json& data){//добавление новой игры или дополнение существующей
         int type;
         cout << "добавить: [1] - чит, [2] - баг, [3] - пасхалку: ";
         cin >> type;
@@ -268,7 +268,7 @@ class Interface{
         int foundIndex = -1;
         
         for (size_t i = 0; i < data.size(); i++){
-            string lowerGame = data[i]["game"].get<string>();
+            string lowerGame = data[i]["game"].get<string>();//приводим название игры из базы к нижнему регистру для сравнения
             for (char& c : lowerGame){
                 c = tolower(c);
             }
@@ -347,14 +347,12 @@ class Interface{
                         data[foundIndex]["easter_egg"] = inputStr;
                     }
                 }
-                
-                
                 saveData(data);
                 return;
             }
         }
 
-        json newGame;
+        json newGame;//создаем новый объект для новой игры
         newGame["game"] = text;
 
         string inputStr;
@@ -381,7 +379,7 @@ class Interface{
             return;
         }
 
-        data.push_back(newGame);
+        data.push_back(newGame);//добавляем новую игру в базу и сохраняем
         saveData(data);
     }
 };
@@ -389,7 +387,7 @@ class Interface{
     /////////////////////////////////////////////////
 
 #ifndef UNIT_TESTING
-int main(){
+int main(){//загрузка данных из файла и запуск интерфейса
     ifstream f("da.json");
     json data = json::parse(f);
     f.close();
