@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <windows.h>
 #include "json.hpp"
 
 using namespace std;
@@ -103,10 +104,20 @@ class Interface{
         cout << "\nвыбор действия:\n[1] - удалить\n[2] - назад\n: ";
         cin >> type;
         if (type == 1){
+            int yesOrNot;
             cout << "введите номер игры, которую хотите удалить: ";
             cin >> delete_game;
-            data.erase(delete_game);
-            saveData(data);
+            cout << "удалить игу: " << data[delete_game] << "?" << endl;
+            cout << "[1] - да\n[2] - нет\nвведите выбор действия: ";
+            cin >> yesOrNot;
+            if (yesOrNot == 1){
+                data.erase(delete_game);
+                saveData(data);
+            }
+            else if (yesOrNot == 2) {
+                return;
+            }
+            else{return;}
         }
         else if (type == 2){
             showMenu(data);
@@ -388,6 +399,8 @@ class Interface{
 
 #ifndef UNIT_TESTING
 int main(){//загрузка данных из файла и запуск интерфейса
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
     ifstream f("da.json");
     json data = json::parse(f);
     f.close();
