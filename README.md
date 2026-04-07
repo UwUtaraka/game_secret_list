@@ -2,7 +2,8 @@
 ## Программа является списком чит кодов, багов и отсылок в разных играх, как если бы вы их записывали в блокнот.
 
 ## :exclamation:ЗАПУСК ТЕСТОВ:exclamation:
-Для запуска тестов нужно иметь **CMake** и **CMake Tools**. Для сборки тестов, нужно открыть **test.cpp**, после чго вверху в VS Code в поиске прописать ```>CMake: Build```
+### Тесты можно запустить либо из zip файла, либо собрать вручную
+Для ручной сборки и запуска тестов нужно иметь **CMake** и **CMake Tools**. Для сборки тестов, нужно открыть **test.cpp**, после чго вверху в VS Code в поиске прописать ```>CMake: Build```
 ![image](https://github.com/UwUtaraka/game_secret_list/blob/main/images/image.png)
 После этого соберётся исполняемый файл **run_tests.exe**. Для запуска тестов, нужно после сборки из директории **build** в терминале прописать ```./run_tests.``` 
 ![image1](https://github.com/UwUtaraka/game_secret_list/blob/main/images/image1.png)
